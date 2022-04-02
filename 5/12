@@ -1,0 +1,23 @@
+open System
+
+(*Задание 12 Предыдущую программу реализовать в функции main с
+помощью только оператора суперпозиции, потом только с помощью
+оператора каррирования.*)
+
+[<EntryPoint>]
+
+let main argv =
+    let lang s = 
+     match s with
+        | "F#" -> "Подлиза!"
+        | "Prolog" -> "Подлиза!"
+        | s -> "ОК"  
+    printfn "Суперпозиция: "
+    printfn "Ваш любимый язык программирования?"  
+    (Console.ReadLine >> lang >> Console.WriteLine)()
+    printfn"Каррирование: "
+    printfn "Введите еще раз"
+    let s = Console.ReadLine()
+    printfn "%s" (lang s)
+    Console.ReadLine()
+    0
