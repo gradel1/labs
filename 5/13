@@ -1,0 +1,31 @@
+open System
+
+let rec multUP a =
+    match a with
+    | 0->1
+    | a -> (a%10)*multUP(a/10)
+
+let rec maxUP a = 
+    match a with 
+    | a when a<>0->
+        let a1 = maxUP (a/10)
+        match a1 with
+        | _ when a%10>a1 -> a%10
+        | a1-> a1
+    | a->0
+
+let rec minUP a =
+     match a with
+     | a when a<>0->
+         let a1 = minUP(a/10)
+         match a1 with
+         | _ when a%10<a1 -> a%10
+         | a1 -> a1
+     | a->9
+
+[<EntryPoint>]
+let main argv = 
+    printfn "%A" argv
+    0 
+
+//ДОДЕЛАТЬ
