@@ -1,3 +1,7 @@
+(*Задание 13. Написать функции произведение цифр числа, минимальная и
+максимальная цифра с использованием рекурсии вверх и с
+использованием хвостовой рекурсии.*)
+
 open System
 
 let rec multUP a =
@@ -11,7 +15,7 @@ let rec maxUP a =
         let a1 = maxUP (a/10)
         match a1 with
         | _ when a%10>a1 -> a%10
-        | a1-> a1
+        | a1 -> a1
     | a->0
 
 let rec minUP a =
@@ -23,9 +27,21 @@ let rec minUP a =
          | a1 -> a1
      | a->9
 
+let rec multDOWN x a =
+    match x with
+    | x when x = 0 -> a
+    | x->         
+       let x1 = x/10
+       let a1 = a*(x%10)
+       multDOWN x1 a1
+ 
 [<EntryPoint>]
 let main argv = 
-    printfn "%A" argv
+    let x = Convert.ToInt32(Console.ReadLine())
+    printfn "Рекурсия вверх:" 
+    printfn "Умножение цифр: %d" (multUP x)
+    printfn "Максимальная цифра: %d" (maxUP x)
+    printfn "Минимальная цифра: %d" (minUP x)
+    printfn "Хвостовая рекурсия:" 
+    printfn "Умножение цифр: %d" (multDOWN x 1)
     0 
-
-//ДОДЕЛАТЬ
