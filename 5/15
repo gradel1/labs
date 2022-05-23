@@ -1,0 +1,34 @@
+(*Задание 15 Написать функцию обход взаимно простых компонентов
+числа, которая выполняет операции над числами, взаимно простыми с
+данным, принимает три аргумента, число, функция (например, сумма,
+произведение, минимум, максимум, количество) и инициализирующее
+значение. Функция должна иметь два Int аргумента и возвращать Int.*)
+
+open System
+
+let rec nod a b =
+    if a % b = 0 then b
+    else
+        nod b (a%b)
+
+let Div x func init=
+    let rec DivRec x func init beg=
+        if beg = 0 then init
+        else
+            let initnew = 
+                if nod x beg = 1 then func beg init 
+                else init
+            let begnew = beg-1
+            DivRec x func initnew begnew
+    DivRec x func init x
+
+[<EntryPoint>]
+let main argv =
+    let x = Convert.ToInt32(Console.ReadLine())
+    let add = Div x (fun a b -> a+b) 0
+    let mult = Div x (fun a b -> a*b) 1
+    printfn "Сумма делителей числа x, взаимно простых с ним:"
+    printfn "%d" (add)
+    printfn "Произведение делителей числа x, взаимно простых с ним:" 
+    printfn "%d" (mult)
+    0
