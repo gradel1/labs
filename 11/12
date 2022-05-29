@@ -1,0 +1,6 @@
+/* №12. Построить предикат wife(X, Y), который проверяет,
+является ли X женой Y. Построить предикат wife(X), который выводит
+жену X. */
+
+wife(X,Y):- parent(X,Z),parent(Y,Z),woman(X),man(Y).
+wife(Y):- parent(X,Z),parent(Y,Z),woman(X),man(Y),write(X).
