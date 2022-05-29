@@ -1,0 +1,5 @@
+/* №14. Построить предикат grand_ma_and_son(X,Y),
+который проверяет, являются ли X и Y бабушкой и 
+внуком или внуком и бабушкой. */
+
+grand_ma_son(X,Y):- parent(X,Z),parent(Z,Y),woman(X);parent(Y,Z),parent(Z,X),woman(Y).
