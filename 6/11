@@ -1,0 +1,46 @@
+(*Задание 11 Написать функцию, принимающую в качестве аргумента
+список и функцию трех переменных, и возвращающую новый список
+длины в три раза меньше, где каждый элемент — это результат
+применения функции к соответствующей тройке. На основе этой
+функции модифицировать введенный пользователем список так, чтобы
+каждый элемент нового списка был суммой соответствующей тройки,
+если количество элементов не делится на три, то в качестве
+недостающих элементов использовать единицы.*)
+
+open System
+
+let rec readList n = 
+    match n with
+       | 0-> []
+       | _ -> 
+          let Head = System.Convert.ToInt32(System.Console.ReadLine())
+          let Tail = readList (n-1)
+          Head::Tail
+
+let rec writeList list = 
+    match list with
+    |[]->0
+    |h::t->
+        printfn $"{h}"
+        writeList t
+
+let ListFun list func = 
+    let rec ListFun_rec list func new_list = 
+        match list with
+        | []->new_list
+        | h::t->
+            let el1 = h
+            let el2 = if t <> [] then t.Head else 1
+            let el3 = if t <> [] then (if t.Tail <> [] then t.Tail.Head else 1) else 1
+            let sum = func el1 el2 el3 
+            let new_list = new_list @ [sum]
+            let shifted_list = if t <> [] then (if t.Tail <> [] then t.Tail.Tail else []) else []
+            ListFun_rec shifted_list func new_list
+    ListFun_rec list func []
+
+[<EntryPoint>]
+let main argv =
+    let list = readList (System.Convert.ToInt32(System.Console.ReadLine()))
+    let new_list = ListFun list (fun a b c -> a+b+c)
+    writeList new_list
+    0
