@@ -1,0 +1,52 @@
+(*Задание 12 Дан целочисленный массив и натуральный индекс (число, меньшее
+размера массива). Необходимо определить является ли элемент по
+указанному индексу глобальным максимумом.*)
+
+open System
+
+let rec readList n = 
+    match n with
+       | 0-> []
+       | _ -> 
+          let Head = System.Convert.ToInt32(System.Console.ReadLine())
+          let Tail = readList (n-1)
+          Head::Tail
+
+let rec writeList list = 
+    match list with
+    |[]->0
+    |h::t->
+        printfn $"{h}"
+        writeList t
+
+let max list=
+    let rec m list max=
+        match list with
+        |[]->max
+        |h::t->
+            let newmax = if h>max then h else max
+            let newlist = t
+            m newlist newmax
+    m list list.Head
+
+let SearchInd list i max=
+    let rec searching list i check=
+        match list with
+        |[]->check
+        |h::t->
+            if i<>1 then
+                let newi=i-1
+                let newlist=t
+                searching newlist newi check
+                else 
+                    if h=max then check=true
+                    else check=false
+    searching list i true
+
+[<EntryPoint>]
+let main argv =
+    let list = readList (System.Convert.ToInt32(System.Console.ReadLine()))
+    let max = max list
+    let n = Convert.ToInt32(Console.ReadLine())
+    Console.WriteLine(SearchInd list n max)
+    0
