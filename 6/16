@@ -1,0 +1,38 @@
+(*Задание 16 Дан целочисленный массив и интервал a..b. Необходимо найти
+максимальный из элементов в этом интервале.*)
+
+open System
+
+let rec readList n = 
+    match n with
+       | 0-> []
+       | _ -> 
+          let Head = System.Convert.ToInt32(System.Console.ReadLine())
+          let Tail = readList (n-1)
+          Head::Tail
+
+let rec writeList list = 
+    match list with
+    |[]->0
+    |h::t->
+        printfn $"{h}"
+        writeList t
+
+let MaxInterval list a b= 
+    let rec maxinterval list max = 
+        match list with
+        |[]->max
+        |h::t-> 
+            let newmax = 
+                if h>max && h>a && h<b then h
+                else max
+            maxinterval t newmax
+    maxinterval list a
+
+[<EntryPoint>]
+let main argv =
+    let list = readList (System.Convert.ToInt32(System.Console.ReadLine()))
+    let a = Convert.ToInt32(Console.ReadLine())
+    let b = Convert.ToInt32(Console.ReadLine())
+    Console.WriteLine(MaxInterval list a b)
+    0
