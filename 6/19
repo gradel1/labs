@@ -1,0 +1,36 @@
+ (* Дан целочисленный массив. Необходимо вывести вначале его
+положительные элементы, а затем - отрицательные. *)
+
+open System
+
+let rec readList n = 
+    match n with
+       | 0-> []
+       | _ -> 
+          let Head = System.Convert.ToInt32(System.Console.ReadLine())
+          let Tail = readList (n-1)
+          Head::Tail
+
+let rec writeList list = 
+    match list with
+    |[]->0
+    |h::t->
+        printfn $"{h}"
+        writeList t
+
+let PlusMinusList list predicate=
+    let rec createlist list newlist=
+        match list with
+        |h::t->
+            let newnewlist=
+                if predicate h then newlist@[h]
+                else newlist
+            createlist t newnewlist
+        |[]->newlist
+    createlist list []
+                    
+[<EntryPoint>]
+let main argv =
+    let list = readList (System.Convert.ToInt32(System.Console.ReadLine())) 
+    writeList(PlusMinusList list (fun x->x>0)@PlusMinusList list (fun x->x<0))
+    0
